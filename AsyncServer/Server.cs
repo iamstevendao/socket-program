@@ -154,6 +154,7 @@ namespace AsyncServer
 
         public static int Main(String[] args)
         {
+            Console.WriteLine("******THIS IS SERVER*******\n");
             StartListening();
             return 0;
         }

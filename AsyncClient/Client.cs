@@ -54,30 +54,29 @@ namespace AsyncClient
                 Socket client = new Socket(ipAddress.AddressFamily,
                    SocketType.Stream, ProtocolType.Tcp);
 
-                //try keep alive but doesn't work
+                //try to keep alive but doesn't work
                 //client.SetSocketOption(SocketOptionLevel.Tcp, SocketOptionName.KeepAlive, true);
-                
-                    // Connect to the remote endpoint.  
-                    client.BeginConnect(remoteEP,
-                    new AsyncCallback(ConnectCallback), client);
+
+                // Connect to the remote endpoint.  
+                client.BeginConnect(remoteEP,
+                new AsyncCallback(ConnectCallback), client);
                 connectDone.WaitOne();
-                while (true)
-                {
-                    // Send test data to the remote device.  
-                    Send(client, "This is a test<EOF>");
-                    sendDone.WaitOne();
-                    Thread.Sleep(1000);
-                    // Receive the response from the remote device.  
-                    Receive(client);
-                    receiveDone.WaitOne();
-                    Thread.Sleep(1000);
-                    // Write the response to the console.  
-                    Console.WriteLine("Response received : {0}", response);
-                    Thread.Sleep(1000);
-                }
+
+                // Send test data to the remote device.  
+                Send(client, "This is a test<EOF>");
+                sendDone.WaitOne();
+
+                // Receive the response from the remote device.  
+                Receive(client);
+                receiveDone.WaitOne();
+
+                // Write the response to the console.  
+                Console.WriteLine("Response received : {0}", response);
+
+
                 // Release the socket. 
-                client.Shutdown(SocketShutdown.Both);
-                client.Close();
+                //client.Shutdown(SocketShutdown.Both);
+                //client.Close();
 
                 Console.WriteLine("--- Client closed");
 
@@ -98,8 +97,7 @@ namespace AsyncClient
                 // Complete the connection.  
                 client.EndConnect(ar);
 
-                Console.WriteLine("Socket connected to {0}",
-                    client.RemoteEndPoint.ToString());
+                Console.WriteLine("Socket connected to {0}", client.RemoteEndPoint.ToString());
 
                 // Signal that the connection has been made.  
                 connectDone.Set();
@@ -119,8 +117,7 @@ namespace AsyncClient
                 state.workSocket = client;
 
                 // Begin receiving the data from the remote device.  
-                client.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
-                    new AsyncCallback(ReceiveCallback), state);
+                client.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,new AsyncCallback(ReceiveCallback), state);
             }
             catch (Exception e)
             {
@@ -198,8 +195,15 @@ namespace AsyncClient
 
         public static int Main(String[] args)
         {
-           StartClient();
-     
+
+            Console.WriteLine("******THIS IS CLIENT*******\n");
+            int count = 1;
+            while (count < 10)
+            {
+                Console.WriteLine("----- {0}:", count++);
+                StartClient();
+                Thread.Sleep(5000);
+            }
             return 0;
         }
     }
