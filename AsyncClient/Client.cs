@@ -78,7 +78,7 @@ namespace AsyncClient
                 //client.Shutdown(SocketShutdown.Both);
                 //client.Close();
 
-                Console.WriteLine("--- Client closed");
+                //Console.WriteLine("--- Client closed");
 
             }
             catch (Exception e)
