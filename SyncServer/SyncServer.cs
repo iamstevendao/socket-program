@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 
 public class SynchronousSocketListener
 {
@@ -13,6 +15,7 @@ public class SynchronousSocketListener
     {
         // Data buffer for incoming data.  
         byte[] bytes = new Byte[1024];
+        List<Socket> handlers = new List<Socket>();
 
         // Establish the local endpoint for the socket.  
         // Dns.GetHostName returns the name of the   
@@ -37,27 +40,35 @@ public class SynchronousSocketListener
             {
                 Console.WriteLine("Waiting for a connection...");
                 // Program is suspended while waiting for an incoming connection.  
-                Socket handler = listener.Accept();
+                //  Socket handler = listener.Accept();
+                handlers.Add(listener.Accept());
                 data = null;
 
                 // An incoming connection needs to be processed.  
                 while (true)
                 {
-                    bytes = new byte[1024];
-                    int bytesRec = handler.Receive(bytes);
-                    data = Encoding.ASCII.GetString(bytes, 0, bytesRec);
-                    if (data.IndexOf("<EOF>") > -1)
+                    //bytes = new byte[1024];
+                    //int bytesRec = handler.Receive(bytes);
+                    //data = Encoding.ASCII.GetString(bytes, 0, bytesRec);
+                    //if (data.IndexOf("<EOF>") > -1)
+                    //{
+                    //    //break;
+                    //    // Show the data on the console.  
+                    //    Console.WriteLine("Text received : {0}", data);
+
+                    //    // Echo the data back to the client.  
+                    //    byte[] msgx = Encoding.ASCII.GetBytes(data);
+
+                    //    handler.Send(msgx);
+                    //}
+                    byte[] msgx = Encoding.ASCII.GetBytes("Hello world");
+
+                    foreach (Socket handler in handlers)
                     {
-                        //break;
-                        // Show the data on the console.  
-                        Console.WriteLine("Text received : {0}", data);
-
-                        // Echo the data back to the client.  
-                        byte[] msgx = Encoding.ASCII.GetBytes(data);
-
                         handler.Send(msgx);
                     }
-                    
+                    Thread.Sleep(3000);
+
                 }
 
                 // Show the data on the console.  

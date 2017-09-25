@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyncClient", "SyncClient\Sy
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyncServer", "SyncServer\SyncServer.csproj", "{ADDCC9E2-E14D-4496-A363-B7CD9E78DE40}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiThreadServer", "MultiThreadServer\MultiThreadServer.csproj", "{892F82B1-1956-4585-9E6F-59E14DE6BF6C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiThreadClient", "MultiThreadClient\MultiThreadClient.csproj", "{94AC6FFA-AC97-46FD-A079-DEE0B2AD3B74}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{ADDCC9E2-E14D-4496-A363-B7CD9E78DE40}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ADDCC9E2-E14D-4496-A363-B7CD9E78DE40}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ADDCC9E2-E14D-4496-A363-B7CD9E78DE40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{892F82B1-1956-4585-9E6F-59E14DE6BF6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{892F82B1-1956-4585-9E6F-59E14DE6BF6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{892F82B1-1956-4585-9E6F-59E14DE6BF6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{892F82B1-1956-4585-9E6F-59E14DE6BF6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94AC6FFA-AC97-46FD-A079-DEE0B2AD3B74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94AC6FFA-AC97-46FD-A079-DEE0B2AD3B74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94AC6FFA-AC97-46FD-A079-DEE0B2AD3B74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94AC6FFA-AC97-46FD-A079-DEE0B2AD3B74}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
