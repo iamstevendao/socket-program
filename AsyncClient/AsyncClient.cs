@@ -70,13 +70,14 @@ namespace AsyncClient
                 Receive(client);
                 receiveDone.WaitOne();
 
+
                 // Write the response to the console.  
                 Console.WriteLine("Response received : {0}", response);
 
 
                 // Release the socket. 
-                //client.Shutdown(SocketShutdown.Both);
-                //client.Close();
+                client.Shutdown(SocketShutdown.Both);
+                client.Close();
 
                 //Console.WriteLine("--- Client closed");
 
@@ -117,7 +118,7 @@ namespace AsyncClient
                 state.workSocket = client;
 
                 // Begin receiving the data from the remote device.  
-                client.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,new AsyncCallback(ReceiveCallback), state);
+                client.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0, new AsyncCallback(ReceiveCallback), state);
             }
             catch (Exception e)
             {
@@ -198,12 +199,12 @@ namespace AsyncClient
 
             Console.WriteLine("******THIS IS CLIENT*******\n");
             int count = 1;
-            while (count < 10)
-            {
-                Console.WriteLine("----- {0}:", count++);
-                StartClient();
-                Thread.Sleep(5000);
-            }
+            //   while (count < 10)
+            //    {
+            Console.WriteLine("----- {0}:", count++);
+            StartClient();
+            //          Thread.Sleep(5000);
+            //      }
             return 0;
         }
     }

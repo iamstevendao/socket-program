@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{AE4E2E82-D526-4750-9494-DAD5A6B9ED64}</ProjectGuid>
+    <ProjectGuid>{30F841F1-63B5-44FD-8B82-0A10951694DE}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>AsyncServer</RootNamespace>
-    <AssemblyName>AsyncServer</AssemblyName>
+    <RootNamespace>SyncClient</RootNamespace>
+    <AssemblyName>SyncClient</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -42,7 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AsyncServer.cs" />
+    <Compile Include="SyncClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

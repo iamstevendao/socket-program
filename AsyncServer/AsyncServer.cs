@@ -110,7 +110,11 @@ namespace AsyncServer
                     Console.WriteLine("Read {0} bytes from socket. \n Data : {1}",
                         content.Length, content);
                     // Echo the data back to the client.  
+                    //while (true)
+                    // {
                     Send(handler, content);
+                    //     Thread.Sleep(3000);
+                    //  }
                 }
                 else
                 {
@@ -142,8 +146,8 @@ namespace AsyncServer
                 int bytesSent = handler.EndSend(ar);
                 Console.WriteLine("Sent {0} bytes to client.", bytesSent);
 
-                handler.Shutdown(SocketShutdown.Both);
-                handler.Close();
+               // handler.Shutdown(SocketShutdown.Both);
+               // handler.Close();
 
             }
             catch (Exception e)

@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncServer", "AsyncServer\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncClient", "AsyncClient\AsyncClient.csproj", "{A80976D3-7C5A-4875-A76D-2D067BBCF55A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyncClient", "SyncClient\SyncClient.csproj", "{30F841F1-63B5-44FD-8B82-0A10951694DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyncServer", "SyncServer\SyncServer.csproj", "{ADDCC9E2-E14D-4496-A363-B7CD9E78DE40}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{A80976D3-7C5A-4875-A76D-2D067BBCF55A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A80976D3-7C5A-4875-A76D-2D067BBCF55A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A80976D3-7C5A-4875-A76D-2D067BBCF55A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30F841F1-63B5-44FD-8B82-0A10951694DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30F841F1-63B5-44FD-8B82-0A10951694DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30F841F1-63B5-44FD-8B82-0A10951694DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30F841F1-63B5-44FD-8B82-0A10951694DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADDCC9E2-E14D-4496-A363-B7CD9E78DE40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADDCC9E2-E14D-4496-A363-B7CD9E78DE40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADDCC9E2-E14D-4496-A363-B7CD9E78DE40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADDCC9E2-E14D-4496-A363-B7CD9E78DE40}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
