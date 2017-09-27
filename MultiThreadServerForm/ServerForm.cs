@@ -15,6 +15,31 @@ namespace MultiThreadServerForm
     public partial class ServerForm : Form
     {
         List<TcpClient> clients = new List<TcpClient>();
+
+        private System.Windows.Forms.Timer timer1;
+        private void InitTimer()
+        {
+            timer1 = new System.Windows.Forms.Timer();
+            timer1.Tick += new EventHandler(Timer1_Tick);
+            timer1.Interval = 2000; // in miliseconds
+            timer1.Start();
+        }
+
+        private void Timer1_Tick(object sender, EventArgs e)
+        {
+
+            foreach (TcpClient tcp in clients.ToList())
+            {
+                if (tcp.Client.Poll(0, SelectMode.SelectRead))
+                {
+                    byte[] buff = new byte[1];
+                    if (tcp.Client.Receive(buff, SocketFlags.Peek) == 0)
+                        clients.Remove(tcp);
+                }
+            }
+            SetLable("Connected: " + clients.Count.ToString());
+        }
+
         public ServerForm()
         {
             InitializeComponent();
@@ -34,10 +59,8 @@ namespace MultiThreadServerForm
             }
         }
 
-        private void ServerForm_Load(object sender, EventArgs e)        {            Thread listening = new Thread(Listening);            listening.Start();        }
-
-        private void ServerForm_Shown(object sender, EventArgs e)        {                   }
-
+        private void ServerForm_Load(object sender, EventArgs e)        {            InitTimer();            Thread listening = new Thread(Listening);            listening.Start();        }
+        
         private void Listening()
         {            TcpListener serverSocket = new TcpListener(8888);
             TcpClient clientSocket = default(TcpClient);

@@ -71,6 +71,7 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.Closed += new System.EventHandler(this.MainForm_Closing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

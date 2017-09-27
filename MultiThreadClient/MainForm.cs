@@ -1,5 +1,6 @@
 ﻿using System;using System.Net.Sockets;using System.Threading;
-using System.Windows.Forms;namespace MultiThreadClient{    public partial class MainForm : Form    {        private TcpClient clientSocket = new TcpClient();        private NetworkStream serverStream;
+using System.Windows.Forms;namespace MultiThreadClient{    public partial class MainForm : Form    {        private TcpClient clientSocket = new TcpClient();
+        Thread childSocketThread;        private NetworkStream serverStream;
 
         private const string SERVER = "127.0.0.1";
         private const int PORT = 8888;
@@ -43,5 +44,4 @@ using System.Windows.Forms;namespace MultiThreadClient{    public partial cl
             }
         }
 
-        private void MainForm_Load(object sender, EventArgs e)        {            UpdateLog("Client Started");            clientSocket.Connect(SERVER, PORT);
-            var childSocketThread = new Thread(() => KeepListening());            childSocketThread.Start();            lbStatus.Text = "Client Socket Program - Server Connected ...";        }    }}
+        private void MainForm_Load(object sender, EventArgs e)        {            UpdateLog("Client Started");            clientSocket.Connect(SERVER, PORT);            childSocketThread = new Thread(KeepListening);            childSocketThread.Start();            lbStatus.Text = "Client Socket Program - Server Connected ...";        }        private void MainForm_Closing(object sender, EventArgs e)        {            childSocketThread.Abort();            clientSocket.GetStream().Close();            clientSocket.Close();        }    }}

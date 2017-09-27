@@ -57,7 +57,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Load += new System.EventHandler(this.ServerForm_Load);
-            this.Shown += new System.EventHandler(this.ServerForm_Shown);
             this.Controls.Add(this.btnSend);
             this.Controls.Add(this.lbStatus);
             this.Name = "ServerForm";
