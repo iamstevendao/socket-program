@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -20,30 +21,34 @@ namespace MultiThreadServerForm
         }
 
 
-        private void btnSend_Click(object sender, EventArgs e)
+        private void BtnSend_Click(object sender, EventArgs e)
         {
-
+            Byte[] sendBytes = null;
+            string serverResponse = "hello world";
+            foreach (TcpClient client in clients)
+            {
+                NetworkStream networkStream = client.GetStream();
+                sendBytes = Encoding.ASCII.GetBytes(serverResponse);
+                networkStream.Write(sendBytes, 0, sendBytes.Length);
+                networkStream.Flush();
+            }
         }
 
-        private void ServerForm_Load(object sender, EventArgs e)        {            TcpListener serverSocket = new TcpListener(8888);
-            TcpClient clientSocket = default(TcpClient);
+        private void ServerForm_Load(object sender, EventArgs e)        {            Thread listening = new Thread(Listening);            listening.Start();        }
 
-            int counter = 0;
+        private void ServerForm_Shown(object sender, EventArgs e)        {                   }
+
+        private void Listening()
+        {            TcpListener serverSocket = new TcpListener(8888);
+            TcpClient clientSocket = default(TcpClient);
             serverSocket.Start();
-            SetLable(">>> Server Started");
-            counter = 0;
             while (true)
             {
-                counter += 1;
                 clientSocket = serverSocket.AcceptTcpClient();
-                Console.WriteLine(" >> " + "Client No:" + Convert.ToString(counter) + " started!");
-                HandleClient client = new HandleClient();
-                client.StartClient(clientSocket, Convert.ToString(counter));
+                clients.Add(clientSocket);
+                SetLable("Connected: " + clients.Count.ToString());
             }
-            clientSocket.Close();
-            serverSocket.Stop();
-            Console.WriteLine(" >> " + "exit");
-            Console.ReadLine();        }
+        }
 
         delegate void SetTextCallback(string text);
 

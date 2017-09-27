@@ -49,7 +49,7 @@
             this.btnSend.TabIndex = 1;
             this.btnSend.Text = "btnSend";
             this.btnSend.UseVisualStyleBackColor = true;
-            this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
+            this.btnSend.Click += new System.EventHandler(this.BtnSend_Click);
             // 
             // ServerForm
             // 
@@ -57,6 +57,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Load += new System.EventHandler(this.ServerForm_Load);
+            this.Shown += new System.EventHandler(this.ServerForm_Shown);
             this.Controls.Add(this.btnSend);
             this.Controls.Add(this.lbStatus);
             this.Name = "ServerForm";
