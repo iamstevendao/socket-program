@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace MultiThreadServerForm
 {
-    static class MultiThreadServerForm
+    static class MultiThreadServer
     {
         /// <summary>
         /// The main entry point for the application.

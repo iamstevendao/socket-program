@@ -8,94 +8,94 @@ using System.Threading;
 public class SynchronousSocketListener
 {
 
-    // Incoming data from the client.  
-    public static string data = null;
+  // Incoming data from the client.  
+  public static string data = null;
 
-    public static void StartListening()
+  public static void StartListening()
+  {
+    // Data buffer for incoming data.  
+    byte[] bytes = new Byte[1024];
+    List<Socket> handlers = new List<Socket>();
+
+    // Establish the local endpoint for the socket.  
+    // Dns.GetHostName returns the name of the   
+    // host running the application.  
+    IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
+    IPAddress ipAddress = ipHostInfo.AddressList[0];
+    IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 11000);
+
+    // Create a TCP/IP socket.  
+    Socket listener = new Socket(AddressFamily.InterNetwork,
+        SocketType.Stream, ProtocolType.Tcp);
+
+    // Bind the socket to the local endpoint and   
+    // listen for incoming connections.  
+    try
     {
-        // Data buffer for incoming data.  
-        byte[] bytes = new Byte[1024];
-        List<Socket> handlers = new List<Socket>();
+      listener.Bind(localEndPoint);
+      listener.Listen(10);
 
-        // Establish the local endpoint for the socket.  
-        // Dns.GetHostName returns the name of the   
-        // host running the application.  
-        IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
-        IPAddress ipAddress = ipHostInfo.AddressList[0];
-        IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 11000);
+      // Start listening for connections.  
+      while (true)
+      {
+        Console.WriteLine("Waiting for a connection...");
+        // Program is suspended while waiting for an incoming connection.  
+        //  Socket handler = listener.Accept();
+        handlers.Add(listener.Accept());
+        data = null;
 
-        // Create a TCP/IP socket.  
-        Socket listener = new Socket(AddressFamily.InterNetwork,
-            SocketType.Stream, ProtocolType.Tcp);
-
-        // Bind the socket to the local endpoint and   
-        // listen for incoming connections.  
-        try
+        // An incoming connection needs to be processed.  
+        while (true)
         {
-            listener.Bind(localEndPoint);
-            listener.Listen(10);
+          //bytes = new byte[1024];
+          //int bytesRec = handler.Receive(bytes);
+          //data = Encoding.ASCII.GetString(bytes, 0, bytesRec);
+          //if (data.IndexOf("<EOF>") > -1)
+          //{
+          //    //break;
+          //    // Show the data on the console.  
+          //    Console.WriteLine("Text received : {0}", data);
 
-            // Start listening for connections.  
-            while (true)
-            {
-                Console.WriteLine("Waiting for a connection...");
-                // Program is suspended while waiting for an incoming connection.  
-                //  Socket handler = listener.Accept();
-                handlers.Add(listener.Accept());
-                data = null;
+          //    // Echo the data back to the client.  
+          //    byte[] msgx = Encoding.ASCII.GetBytes(data);
 
-                // An incoming connection needs to be processed.  
-                while (true)
-                {
-                    //bytes = new byte[1024];
-                    //int bytesRec = handler.Receive(bytes);
-                    //data = Encoding.ASCII.GetString(bytes, 0, bytesRec);
-                    //if (data.IndexOf("<EOF>") > -1)
-                    //{
-                    //    //break;
-                    //    // Show the data on the console.  
-                    //    Console.WriteLine("Text received : {0}", data);
+          //    handler.Send(msgx);
+          //}
+          byte[] msgx = Encoding.ASCII.GetBytes("Hello world");
 
-                    //    // Echo the data back to the client.  
-                    //    byte[] msgx = Encoding.ASCII.GetBytes(data);
-
-                    //    handler.Send(msgx);
-                    //}
-                    byte[] msgx = Encoding.ASCII.GetBytes("Hello world");
-
-                    foreach (Socket handler in handlers)
-                    {
-                        handler.Send(msgx);
-                    }
-                    Thread.Sleep(3000);
-
-                }
-
-                // Show the data on the console.  
-                //Console.WriteLine("Text received : {0}", data);
-
-                //// Echo the data back to the client.  
-                //byte[] msg = Encoding.ASCII.GetBytes(data);
-
-                //handler.Send(msg);
-              //  handler.Shutdown(SocketShutdown.Both);
-             //   handler.Close();
-            }
+          foreach (Socket handler in handlers)
+          {
+            handler.Send(msgx);
+          }
+          Thread.Sleep(3000);
 
         }
-        catch (Exception e)
-        {
-            Console.WriteLine(e.ToString());
-        }
 
-        Console.WriteLine("\nPress ENTER to continue...");
-        Console.Read();
+        // Show the data on the console.  
+        //Console.WriteLine("Text received : {0}", data);
+
+        //// Echo the data back to the client.  
+        //byte[] msg = Encoding.ASCII.GetBytes(data);
+
+        //handler.Send(msg);
+        //  handler.Shutdown(SocketShutdown.Both);
+        //   handler.Close();
+      }
 
     }
-
-    public static int Main(String[] args)
+    catch (Exception e)
     {
-        StartListening();
-        return 0;
+      Console.WriteLine(e.ToString());
     }
+
+    Console.WriteLine("\nPress ENTER to continue...");
+    Console.Read();
+
+  }
+
+  public static int Main(String[] args)
+  {
+    StartListening();
+    return 0;
+  }
 }
